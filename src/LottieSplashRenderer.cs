@@ -41,7 +41,6 @@ public class LottieSplashRenderer : IDisposable
         if (animation is null)
         {
             DisposeImpl();
-
             return;
         }
 
@@ -62,14 +61,14 @@ public class LottieSplashRenderer : IDisposable
 
     private void Start()
     {
-        if (_animation is null) return;
+        if (_animation is null)
+            return;
 
-        if (_repeatCount == 0) return;
+        if (_repeatCount == 0)
+            return;
 
         _count = 0;
-
         _isRunning = true;
-
         _timer = new Timer
         {
             Interval = Math.Max(1 / 60.0, 1 / _animation.Fps) * 1000
@@ -155,7 +154,8 @@ public class LottieSplashRenderer : IDisposable
     protected virtual void Draw(SKCanvas canvas)
     {
         var animation = _animation;
-        if (animation is null) return;
+        if (animation is null)
+            return;
 
         if (_ic is null)
         {
@@ -164,27 +164,16 @@ public class LottieSplashRenderer : IDisposable
         }
 
         var ic = _ic;
-
         if (_repeatCount == 0) return;
-
         var t = GetFrameTime();
-        if (!_isRunning) t = (float)animation.Duration.TotalSeconds;
-
+        if (!_isRunning)
+            t = (float)animation.Duration.TotalSeconds;
         var dst = new SKRect(0, 0, animation.Size.Width, animation.Size.Height);
-
         animation.SeekFrameTime(t, ic);
-
-        // Debug.WriteLine($"dst: {dst}, ic.Bounds: {ic.Bounds}");
-
         canvas.Save();
-
         animation.Render(canvas, dst);
-        // canvas.DrawRect(ic.Bounds, new SKPaint { Color = SKColors.Magenta, Style = SKPaintStyle.Stroke, StrokeWidth = 1 });
-
         canvas.Restore();
-
         ic.Reset();
-
         canvas.Flush();
     }
 
@@ -204,12 +193,9 @@ public class LottieSplashRenderer : IDisposable
     private void Stop()
     {
         _isRunning = false;
-
         _timer?.Stop();
         _timer = null;
-
         _watch.Reset();
-
         _count = 0;
     }
 }

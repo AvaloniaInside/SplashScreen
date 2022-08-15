@@ -1,5 +1,4 @@
 using Avalonia;
-using Avalonia.LinuxFramebuffer.Output;
 using Avalonia.OpenGL;
 using Avalonia.OpenGL.Surfaces;
 using SkiaSharp;
@@ -24,15 +23,7 @@ internal sealed class SplashRenderer : IDisposable
 
     public SKCanvas Canvas => _surface?.Canvas ?? throw new Exception("Cannot init splash");
 
-    public Size Size
-    {
-        get
-        {
-            if (_draw != null)
-                return new Size(_draw.Size.Width, _draw.Size.Height);
-            return new Size(0, 0);
-        }
-    }
+    public Size Size => _draw != null ? new Size(_draw.Size.Width, _draw.Size.Height) : new Size(0, 0);
 
     public void Dispose()
     {
@@ -51,7 +42,6 @@ internal sealed class SplashRenderer : IDisposable
         _draw = _target.BeginDraw();
 
         var context = _draw.Context;
-        //context.GlInterface.ClearColor(0, 0, 0.3f, 1);
         context.GlInterface.Clear(GlConsts.GL_COLOR_BUFFER_BIT | GlConsts.GL_STENCIL_BUFFER_BIT);
 
         _iFace = context.Version.Type == GlProfileType.OpenGL
@@ -62,11 +52,11 @@ internal sealed class SplashRenderer : IDisposable
             new GRContextOptions { AvoidStencilBuffers = true });
 
         var size = _draw.Size;
-        var disp = _draw.Context;
-        disp.GlInterface.GetIntegerv(GlConsts.GL_FRAMEBUFFER_BINDING, out var fb);
+        var drawContext = _draw.Context;
+        drawContext.GlInterface.GetIntegerv(GlConsts.GL_FRAMEBUFFER_BINDING, out var fb);
 
         _renderTarget =
-            new GRBackendRenderTarget(size.Width, size.Height, disp.SampleCount, disp.StencilSize,
+            new GRBackendRenderTarget(size.Width, size.Height, drawContext.SampleCount, drawContext.StencilSize,
                 new GRGlFramebufferInfo((uint)fb, SKColorType.Rgba8888.ToGlSizedFormat()));
 
         _surface = SKSurface.Create(
