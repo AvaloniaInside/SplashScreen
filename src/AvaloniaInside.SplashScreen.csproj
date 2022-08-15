@@ -11,6 +11,14 @@
         <Company>AvaloniaInside</Company>
         <Product>SplashScreen</Product>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Description>SplashScreen for AvaloniaInside Based Systems</Description>
+        <Copyright>Copyright 2022 © AvaloniaInside</Copyright>
+        <PackageProjectUrl>https://github.com/AvaloniaInside/SplashScreen</PackageProjectUrl>
+        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+        <PackageLicenseType>MIT</PackageLicenseType>
+        <RepositoryUrl>https://github.com/AvaloniaInside/SplashScreen</RepositoryUrl>
+        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
