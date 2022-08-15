@@ -10,6 +10,7 @@
         <PackageTags>AvaloniaInside, SplashScreen</PackageTags>
         <Company>AvaloniaInside</Company>
         <Product>SplashScreen</Product>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
